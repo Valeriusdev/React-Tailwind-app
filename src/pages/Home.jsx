@@ -23,15 +23,31 @@ export default function Home() {
     }
   }
 
+  async function handleSendWithData() {
+    if (!input.trim()) return;
+    setLoading(true);
+    setError("");
+    setAnswer("");
+    try {
+      const serialized = JSON.stringify(dummyData, null, 2);
+      const prompt = `${input}\n\nContext data (JSON):\n${serialized}`;
+      const resText = await chatGroq(prompt);
+      setAnswer(resText || "(No response)");
+    } catch (e) {
+      setError(e.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <div className="flex h-screen w-screen bg-gray-50 items-center justify-center p-4">
       <div className="flex flex-row items-start justify-center gap-8">
-        {/* Cards Column */}
         <div className="flex flex-col gap-5 max-h-[80vh] overflow-auto pr-2">
           {dummyData.map((item) => (
             <div
               key={item.id}
-              className="bg-blue-500 text-white rounded-xl p-8 shadow-lg w-80"
+              className="bg-sky-600 text-white rounded-xl p-8 shadow-lg w-80"
             >
               <div className="font-bold text-lg mb-2 truncate">{item.name}</div>
               <div className="flex flex-wrap gap-1">
@@ -49,7 +65,6 @@ export default function Home() {
             </div>
           ))}
         </div>
-        {/* Chat Column */}
         <div className="flex flex-col items-center w-96">
           <h1 className="text-2xl font-bold mb-4">Chat with AI</h1>
           <input
@@ -83,13 +98,21 @@ export default function Home() {
               Clear
             </button>
           </div>
+          <button
+            type="button"
+            disabled={loading}
+            className="w-full mb-4 bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded transition disabled:opacity-50 disabled:cursor-not-allowed"
+            onClick={handleSendWithData}
+          >
+            Send with Data
+          </button>
           {error && (
             <div className="w-full mb-3 text-sm text-red-700 bg-red-100 border border-red-300 rounded p-3">
               {error}
             </div>
           )}
           {answer && !error && (
-            <div className="w-full whitespace-pre-wrap text-sm text-gray-800 bg-green-100 border border-green-300 rounded p-4 mb-3">
+            <div className="w-full whitespace-pre-wrap text-gray-800 bg-green-100 border border-green-300 rounded p-4 mb-3">
               {answer}
             </div>
           )}
