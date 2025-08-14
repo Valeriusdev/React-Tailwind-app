@@ -85,7 +85,7 @@ export default function Home() {
               disabled={loading}
               className="bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed flex-1 text-white px-4 py-2 rounded hover:bg-blue-600 flex items-center justify-center gap-2"
             >
-              <FontAwesomeIcon icon={faPaperPlane} />
+              <FontAwesomeIcon icon={faPaperPlane} size="sm" />
               {loading ? "Sending..." : "Send"}
             </button>
             <button
@@ -98,7 +98,7 @@ export default function Home() {
               disabled={loading}
               className="bg-gray-500 flex-1 text-white px-4 py-2 rounded hover:bg-gray-600 disabled:opacity-50 flex items-center justify-center gap-2"
             >
-              <FontAwesomeIcon icon={faTrash} />
+              <FontAwesomeIcon icon={faTrash} size="sm" />
               Clear
             </button>
           </div>
@@ -108,7 +108,7 @@ export default function Home() {
             className="w-full mb-4 bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             onClick={handleSendWithData}
           >
-            <FontAwesomeIcon icon={faPaperPlane} />
+            <FontAwesomeIcon icon={faPaperPlane} size="sm" />
             Send with Data
           </button>
           {error && (
