@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaperPlane, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { chatGroq } from "../services/groqClient";
 import { dummyData } from "../dummydata/dummydata";
 
@@ -42,7 +44,7 @@ export default function Home() {
 
   return (
     <div className="flex h-screen w-screen bg-gray-50 items-center justify-center p-4">
-      <div className="flex flex-row items-start justify-center gap-8">
+      <div className="flex flex-col md:flex-row items-start justify-center gap-8 w-full">
         <div className="flex flex-col gap-5 max-h-[80vh] overflow-auto pr-2">
           {dummyData.map((item) => (
             <div
@@ -81,8 +83,9 @@ export default function Home() {
             <button
               onClick={handleSend}
               disabled={loading}
-              className="bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed flex-1 text-white px-4 py-2 rounded hover:bg-blue-600"
+              className="bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed flex-1 text-white px-4 py-2 rounded hover:bg-blue-600 flex items-center justify-center gap-2"
             >
+              <FontAwesomeIcon icon={faPaperPlane} />
               {loading ? "Sending..." : "Send"}
             </button>
             <button
@@ -93,17 +96,19 @@ export default function Home() {
                 setError("");
               }}
               disabled={loading}
-              className="bg-gray-500 flex-1 text-white px-4 py-2 rounded hover:bg-gray-600 disabled:opacity-50"
+              className="bg-gray-500 flex-1 text-white px-4 py-2 rounded hover:bg-gray-600 disabled:opacity-50 flex items-center justify-center gap-2"
             >
+              <FontAwesomeIcon icon={faTrash} />
               Clear
             </button>
           </div>
           <button
             type="button"
             disabled={loading}
-            className="w-full mb-4 bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded transition disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full mb-4 bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             onClick={handleSendWithData}
           >
+            <FontAwesomeIcon icon={faPaperPlane} />
             Send with Data
           </button>
           {error && (
